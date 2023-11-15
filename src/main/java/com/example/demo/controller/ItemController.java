@@ -21,16 +21,22 @@ public class ItemController {
 	@GetMapping("/items")
 	public String index(
 			@RequestParam(name = "sort", defaultValue = "") String sort,
+			@RequestParam(name = "maxPrice", defaultValue = "") Integer maxPrice,
 			Model model) {
 		// sortキーによって処理を分割
-		if (sort.isEmpty()) {
-			// すべての商品リストを取得
-			List<Item> list = itemRepository.findAll();
+		if ("priceAsc".equals(sort)) {
+			// 指定された並び順の商品リストを取得
+			List<Item> list = itemRepository.findAllByOrderByPriceAsc();
+			// スコープに商品リストを登録
+			model.addAttribute("itemList", list);
+		} else if (maxPrice != null) {
+			// 指定された金額以下の商品リストを取得
+			List<Item> list = itemRepository.findByPriceLessThanEqual(maxPrice);
 			// スコープに商品リストを登録
 			model.addAttribute("itemList", list);
 		} else {
-			// 指定された並び順の商品リストを取得
-			List<Item> list = itemRepository.findAllByOrderByPriceAsc();
+			// すべての商品リストを取得
+			List<Item> list = itemRepository.findAll();
 			// スコープに商品リストを登録
 			model.addAttribute("itemList", list);
 		}

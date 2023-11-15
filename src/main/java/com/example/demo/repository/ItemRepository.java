@@ -11,5 +11,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	// 価格の安い順（昇順）に商品を取得する
 	List<Item> findAllByOrderByPriceAsc();
 
+	// 上限金額以下の価格の商品を取得する
+	List<Item> findByPriceLessThanEqual(Integer maxPrice);
+
 
 }
