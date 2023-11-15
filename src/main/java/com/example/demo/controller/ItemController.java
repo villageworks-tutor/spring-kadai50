@@ -34,6 +34,7 @@ public class ItemController {
 			List<Item> list = itemRepository.findByPriceLessThanEqual(maxPrice);
 			// スコープに商品リストを登録
 			model.addAttribute("itemList", list);
+			model.addAttribute("maxPrice", maxPrice);
 		} else {
 			// すべての商品リストを取得
 			List<Item> list = itemRepository.findAll();
