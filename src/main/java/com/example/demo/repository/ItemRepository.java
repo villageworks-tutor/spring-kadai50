@@ -14,5 +14,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	// 上限金額以下の価格の商品を取得する
 	List<Item> findByPriceLessThanEqual(Integer maxPrice);
 
+	// nameフィールドで部分一致検索を実行する
+	List<Item> findByNameContaining(String keyword);
+
 
 }
